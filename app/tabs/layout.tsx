@@ -1,6 +1,6 @@
 import SiteFrame from "@/components/layout/SiteFrame";
 
-export default function SiteLayout({
+export default function TabsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

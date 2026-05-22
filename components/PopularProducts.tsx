@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 
 const PopularProducts = () => {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
   // Mock data representing the products in your design image
   const products = [
@@ -48,9 +48,9 @@ const PopularProducts = () => {
   ];
 
   // Optional simple click scroll handler for navigation arrows
-  const scroll = (direction) => {
+  const scroll = (direction: "left" | "right") => {
     if (sliderRef.current) {
-      const { scrollLeft, clientWidth } = sliderRef.current;
+      const { scrollLeft } = sliderRef.current;
       const scrollTo =
         direction === "left" ? scrollLeft - 300 : scrollLeft + 300;
       sliderRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });

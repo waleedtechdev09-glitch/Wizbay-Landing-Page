@@ -2,108 +2,185 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-// import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import {
+  audienceTabs,
+  categoryTabs,
+  localeSelectors,
+  utilityLinks,
+} from "./navigation/nav-data";
 
-const Navbar = () => {
-  const [activeTab, setActiveTab] = useState("WOMEN");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+function isActiveCategory(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
-  const targetAudience = ["WOMEN", "MEN", "KIDS", "LIFE"];
-
-  const categories = [
-    "New Arrivals",
-    "Brands",
-    "Clothing",
-    "Shoes",
-    "Bags",
-    "Sunglasses",
-    "Accessories",
-    "Jewelry",
-    "Watches",
-    "Pre-Loved",
-    "Flash Sales",
-  ];
-
-  const utilityLinks = [
-    "Invite a Friend",
-    "Articles",
-    "About Us",
-    "Help",
-    "Logout",
-  ];
-
-  const selectors = ["Kreuzberg", "€ Euro", "English"];
-
-  // Map special categories to their dedicated routes instead of in-page anchors
-  const getCategoryHref = (category: string) => {
-    if (category === "New Arrivals") {
-      return "/tabs/latestArrival";
-    }
-    if (category === "Clothing") {
-      return "/tabs/clothing";
-    }
-    if (category === "Shoes") {
-      return "/tabs/shoes";
-    }
-    if (category === "Bags") {
-      return "/tabs/bags";
-    }
-    if (category === "Sunglasses") {
-      return "/tabs/sunglasses";
-    }
-    if (category === "Watches") {
-      return "/tabs/watches";
-    }
-    if (category === "Accessories") {
-      return "/tabs/accessories";
-    }
-    if (category === "Jewelry") {
-      return "/tabs/jwelery";
-    }
-    if (category === "Pre-Loved") {
-      return "/tabs/pre-loved";
-    }
-    if (category === "Flash Sales") {
-      return "/auth/verification";
-    }
-
-    return `#${category.toLowerCase().replace(/\s+/g, "-")}`;
-  };
-
+function MobileMenuDrawer({
+  onClose,
+  pathname,
+  activeAudience,
+}: Readonly<{
+  onClose: () => void;
+  pathname: string;
+  activeAudience: string;
+}>) {
   return (
-    <nav className="w-full border-b border-[#ececec] bg-white text-[#303030] font-sans sticky top-0 z-50">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        {/* =========================================================
-            DESKTOP & TABLET ROW 1: Audience, Search, Icons
-           ========================================================= */}
-        <div className="hidden md:flex items-center justify-between py-4 gap-4">
-          {/* Left Side: Target Audience Tabs */}
-          <div className="flex items-center gap-5 overflow-x-auto no-scrollbar whitespace-nowrap text-[12px] font-medium tracking-[0.08em] text-[#666666] sm:text-[13px]">
-            {targetAudience.map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => setActiveTab(tab)}
-                className={`relative shrink-0 pb-1 cursor-pointer transition-colors duration-200 hover:text-black ${
-                  activeTab === tab
-                    ? "text-[#3C4242] text-[12px] font-semibold"
-                    : "text-normal"
-                }`}
+    <div className="flex h-full flex-col overflow-y-auto bg-white px-5 py-6 font-sans text-[#303030]">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <h2 className="text-[20px] font-medium tracking-tight text-slate-800">Menu</h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-full p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-black"
+          aria-label="Close Menu"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="space-y-6 py-6">
+        <section>
+          <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Audience
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            {audienceTabs.map((tab) => {
+              const active = activeAudience === tab.value;
+              return (
+                <Link
+                  key={tab.value}
+                  href={`/?audience=${tab.value}`}
+                  onClick={onClose}
+                  className={`border px-4 py-3 text-center text-[14px] tracking-[0.08em] transition ${
+                    active
+                      ? "border-black bg-black text-white"
+                      : "border-slate-200 text-slate-700 hover:border-black hover:text-black"
+                  }`}
+                >
+                  {tab.label.toUpperCase()}
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="space-y-3">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Categories
+          </p>
+          <div className="grid gap-2">
+            {categoryTabs.map((category) => {
+              const active = isActiveCategory(pathname, category.href);
+              return (
+                <Link
+                  key={category.label}
+                  href={category.href}
+                  onClick={onClose}
+                  className={`flex items-center justify-between border px-4 py-3 text-[15px] transition ${
+                    active
+                      ? "border-black bg-black text-white"
+                      : "border-slate-200 text-slate-700 hover:border-black hover:text-black"
+                  }`}
+                >
+                  <span>{category.label}</span>
+                  <span className="text-xs opacity-70">Open</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="space-y-3">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Links
+          </p>
+          <div className="grid gap-2">
+            {utilityLinks.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={onClose}
+                className="border border-slate-200 px-4 py-3 text-[15px] text-slate-700 transition hover:border-black hover:text-black"
               >
-                {tab}
-                {activeTab === tab && (
-                  <span className="absolute bottom-0 left-0 h-[3px] w-full bg-neutral-800 rounded-full" />
-                )}
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-3">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Locale
+          </p>
+          <div className="grid gap-2">
+            {localeSelectors.map((label) => (
+              <button
+                key={label}
+                type="button"
+                className="flex items-center justify-between border border-slate-200 px-4 py-3 text-left text-[15px] text-slate-700 transition hover:border-black hover:text-black"
+              >
+                <span>{label}</span>
+                <svg
+                  className="h-4 w-4 text-slate-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
             ))}
           </div>
+        </section>
+      </div>
+    </div>
+  );
+}
 
-          {/* Center: Desktop Search Bar */}
-          <div className="flex flex-1 items-center  justify-center max-w-[430px] mx-4 ">
-            <label className="relative w-full ">
+export default function Navbar() {
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeAudience = searchParams.get("audience") ?? "men";
+
+  return (
+    <nav className="sticky top-0 z-50 w-full border-b border-[#ececec] bg-white font-sans text-[#303030]">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+        <div className="hidden items-center justify-between gap-4 py-4 md:flex">
+          <div className="flex items-center gap-5 overflow-x-auto whitespace-nowrap text-[13px] font-medium tracking-[0.08em] text-[#666666] no-scrollbar">
+            {audienceTabs.map((tab) => {
+              const active = activeAudience === tab.value;
+              return (
+                <Link
+                  key={tab.value}
+                  href={`/?audience=${tab.value}`}
+                  className={`relative shrink-0 pb-1 transition-colors hover:text-black ${
+                    active ? "text-black" : "text-[#666666]"
+                  }`}
+                >
+                  {tab.label.toUpperCase()}
+                  {active && (
+                    <span className="absolute bottom-0 left-0 h-[2px] w-full bg-black" />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mx-4 flex max-w-[430px] flex-1 items-center justify-center">
+            <label className="relative w-full">
               <svg
-                className="pointer-events-none absolute left-0.5 top-1/2 h-6 w-6 -translate-y-1/2 text-[#a8a8a8] "
+                className="pointer-events-none absolute left-0.5 top-1/2 h-6 w-6 -translate-y-1/2 text-[#a8a8a8]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -119,87 +196,77 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="What are you looking for?"
-                className="w-full border-b border-[#d8d8d8] bg-transparent py-1 pl-18 pr-2 text-[16px] text-[#2b2b2b] placeholder:text-[#a3a3a3] focus:border-black focus:outline-none transition-colors "
+                className="w-full border-b border-[#d8d8d8] bg-transparent py-1 pl-[4.5rem] pr-2 text-[16px] text-[#2b2b2b] placeholder:text-[#a3a3a3] transition-colors focus:border-black focus:outline-none"
               />
             </label>
           </div>
 
-          {/* Right Side: Action Icons */}
           <div className="flex items-center gap-4 text-[#444] sm:gap-5">
-            {/* Account */}
-            <button
-              className="transition hover:text-black cursor-pointer"
+            <Link
+              href="/auth/login"
+              className="transition hover:text-black"
               aria-label="Account"
             >
-              <Link href="/auth/login" className="flex items-center gap-1">
-                <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                  />
-                </svg>
-              </Link>
-            </button>
+              <svg
+                className="h-5 w-5 sm:h-6 sm:w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </Link>
 
-            {/* Wishlist */}
-            <button
-              className="transition hover:text-black cursor-pointer"
+            <Link
+              href="/auth/verification"
+              className="transition hover:text-black"
               aria-label="Wishlist"
             >
-              <Link href="/auth/verification">
-                <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                  />
-                </svg>
-              </Link>
-            </button>
+              <svg
+                className="h-5 w-5 sm:h-6 sm:w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            </Link>
 
-            {/* Cart */}
-            <button
-              className="transition hover:text-black cursor-pointer"
+            <Link
+              href="/auth/verification"
+              className="transition hover:text-black"
               aria-label="Cart"
             >
-              <Link href="/auth/verification">
-                <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
-                  />
-                </svg>
-              </Link>
-            </button>
+              <svg
+                className="h-5 w-5 sm:h-6 sm:w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
 
-        {/* =========================================================
-            DESKTOP ROW 2: Logo & Main Categories Navigation
-           ========================================================= */}
-        <div className="hidden md:flex items-center gap-32 py-4">
+        <div className="hidden items-center gap-32 py-4 md:flex">
           <Link href="/" className="inline-block shrink-0">
-            <div className="relative w-[85px] h-[18px]">
+            <div className="relative h-[18px] w-[85px]">
               <Image
                 src="/assets/wizbay-logo.png"
                 alt="WIZBAY Logo"
@@ -211,26 +278,29 @@ const Navbar = () => {
             </div>
           </Link>
 
-          <div className="flex items-center gap-6 overflow-x-auto no-scrollbar whitespace-nowrap text-[17px] font-normal text-[#3C4242]">
-            {categories.map((category) => (
-              <Link
-                key={category}
-                href={getCategoryHref(category)}
-                className="shrink-0 transition hover:text-black hover:underline"
-              >
-                {category}
-              </Link>
-            ))}
+          <div className="flex items-center gap-6 overflow-x-auto whitespace-nowrap text-[17px] font-normal text-[#3C4242] no-scrollbar">
+            {categoryTabs.map((category) => {
+              const active = isActiveCategory(pathname, category.href);
+              return (
+                <Link
+                  key={category.label}
+                  href={category.href}
+                  className={`shrink-0 transition ${
+                    active
+                      ? "font-semibold text-black underline underline-offset-4"
+                      : "hover:text-black hover:underline"
+                  }`}
+                >
+                  {category.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
-        {/* =========================================================
-            MOBILE & SMALL TABLET HEADER (Wizbay Logo Left, Hamburger Right)
-           ========================================================= */}
-        <div className="flex md:hidden items-center justify-between py-4">
-          {/* Wizbay Logo Left */}
+        <div className="flex items-center justify-between py-4 md:hidden">
           <Link href="/" className="inline-block shrink-0">
-            <div className="relative w-[95px] h-[20px]">
+            <div className="relative h-[20px] w-[95px]">
               <Image
                 src="/assets/wizbay-logo.png"
                 alt="WIZBAY Logo"
@@ -242,153 +312,45 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Hamburger Menu Right */}
           <button
-            className="p-2 -mr-2 transition text-[#333] hover:text-black cursor-pointer"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation Menu"
+            type="button"
+            className="cursor-pointer p-2 -mr-2 text-[#333] transition hover:text-black"
+            onClick={() => setMobileDrawerOpen(true)}
+            aria-label="Open Menu"
           >
             <svg
-              className="w-6 h-6"
+              className="h-6 w-6"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               viewBox="0 0 24 24"
             >
-              {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>
       </div>
 
-      {/* =========================================================
-          RESPONSIVE MOBILE OVERLAY DRAWER
-         ========================================================= */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-[#ececec] px-5 py-6 space-y-6 max-h-[85vh] overflow-y-auto shadow-xl animate-fadeIn">
-          {/* 1. Mobile Search Bar */}
-          <div className="w-full">
-            <label className="relative w-full">
-              <svg
-                className="pointer-events-none absolute left-0.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#a8a8a8]"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="w-full border-b border-[#d8d8d8] bg-transparent py-2 pl-8 pr-2 text-[15px] focus:border-black focus:outline-none"
-              />
-            </label>
-          </div>
+      {mobileDrawerOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+          onClick={() => setMobileDrawerOpen(false)}
+        />
+      )}
 
-          {/* 2. Target Audience Mobile Switcher */}
-          <div className="flex items-center gap-4 border-b border-[#f5f5f5] pb-3 overflow-x-auto no-scrollbar">
-            {targetAudience.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`text-[13px] font-bold tracking-wider pb-1 transition-all ${
-                  activeTab === tab
-                    ? "text-black border-b-2 border-black"
-                    : "text-[#888888]"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* 3. Main Navigation Links Categories */}
-          <div>
-            <p className="text-[11px] uppercase tracking-widest text-[#999999] font-bold mb-3">
-              Categories
-            </p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3.5">
-              {categories.map((category) => (
-                <Link
-                  key={category}
-                  href={getCategoryHref(category)}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-[14px] font-medium text-[#444444] hover:text-black transition-colors"
-                >
-                  {category}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <hr className="border-[#ececec]" />
-
-          {/* 4. Action / Utility Links inside Drawer for Mobile Layouts */}
-          <div className="space-y-4">
-            <p className="text-[11px] uppercase tracking-widest text-[#999999] font-bold">
-              Account & Settings
-            </p>
-
-            {/* Displaying Utility Links dynamically */}
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-[#555]">
-              {utilityLinks.map((link) => (
-                <Link
-                  key={link}
-                  href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-black"
-                >
-                  {link}
-                </Link>
-              ))}
-            </div>
-
-            {/* Displaying Dropdown Locales horizontally on mobile */}
-            <div className="flex flex-wrap gap-4 pt-2 text-[13px] font-medium text-[#2b2b2b]">
-              {selectors.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-1 border border-[#e5e5e5] px-2.5 py-1 rounded-md bg-[#f9f9f9]"
-                >
-                  <span>{item}</span>
-                  <svg
-                    className="w-3 h-3 text-[#777]"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              ))}
-            </div>
-          </div>
+      {mobileDrawerOpen && (
+        <div className="fixed inset-y-0 left-0 z-50 h-full w-full overflow-hidden bg-white shadow-2xl md:hidden">
+          <MobileMenuDrawer
+            onClose={() => setMobileDrawerOpen(false)}
+            pathname={pathname}
+            activeAudience={activeAudience}
+          />
         </div>
       )}
     </nav>
   );
-};
-
-export default Navbar;
+}

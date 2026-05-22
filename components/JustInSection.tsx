@@ -29,7 +29,7 @@ const JustInSection = () => {
 
             {/* Supporting Text Label */}
             <p className="mt-2 text-[13px] font-normal tracking-wide text-[#666666] md:text-[14px]">
-              Move fast, add today's beauties to your bag
+              Move fast, add today&apos;s beauties to your bag
             </p>
 
             {/* Border Call To Action Button Link */}

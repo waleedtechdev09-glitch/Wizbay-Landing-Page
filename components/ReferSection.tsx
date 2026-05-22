@@ -55,7 +55,7 @@ const ReferSection = () => {
 
               {/* Informative Content Message Description Text Block */}
               <p className="mt-3 text-[12px] font-normal leading-relaxed text-[#555555] sm:text-[13px] max-w-[440px]">
-                Share The Joy! Invite Your Friends To Join Us And You'll Both
+                Share The Joy! Invite Your Friends To Join Us And You&apos;ll Both
                 Enjoy Exclusive Discounts On Your Next Purchase.
               </p>
 

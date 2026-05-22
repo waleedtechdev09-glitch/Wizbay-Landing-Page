@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 
 const Brands = () => {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
   const brandLogos = [
     { id: 1, name: "GANT" },
@@ -17,7 +17,7 @@ const Brands = () => {
     { id: 8, name: "VERSACE" },
   ];
 
-  const scroll = (direction) => {
+  const scroll = (direction: "left" | "right") => {
     if (sliderRef.current) {
       const { scrollLeft } = sliderRef.current;
       const scrollAmount = direction === "left" ? -360 : 360;

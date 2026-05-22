@@ -130,7 +130,7 @@ const Login = () => {
 
           {/* Footer Navigation Link */}
           <p className="mt-8 text-sm text-gray-600">
-            Don't have an Account?{" "}
+            Don&apos;t have an Account?{" "}
             <Link
               href="/auth/register"
               className="text-gray-800  underline underline-offset-2 hover:text-black"
