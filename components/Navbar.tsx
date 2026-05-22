@@ -40,6 +40,34 @@ const Navbar = () => {
     if (category === "New Arrivals") {
       return "/tabs/latestArrival";
     }
+    if (category === "Clothing") {
+      return "/tabs/clothing";
+    }
+    if (category === "Shoes") {
+      return "/tabs/shoes";
+    }
+    if (category === "Bags") {
+      return "/tabs/bags";
+    }
+    if (category === "Sunglasses") {
+      return "/tabs/sunglasses";
+    }
+    if (category === "Watches") {
+      return "/tabs/watches";
+    }
+    if (category === "Accessories") {
+      return "/tabs/accessories";
+    }
+    if (category === "Jewelry") {
+      return "/tabs/jwelery";
+    }
+    if (category === "Pre-Loved") {
+      return "/tabs/pre-loved";
+    }
+    if (category === "Flash Sales") {
+      return "/auth/verification";
+    }
+
     return `#${category.toLowerCase().replace(/\s+/g, "-")}`;
   };
 
