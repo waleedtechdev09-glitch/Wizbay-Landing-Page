@@ -14,7 +14,7 @@ const Login = () => {
         {/* Brand Logo Overlay */}
         <div className="absolute top-8 left-8 md:top-12 md:left-12">
           <span className="text-2xl md:text-3xl font-serif tracking-widest text-white uppercase drop-shadow-sm">
-            Wizbay
+            <Link href="/">Wizbay</Link>
           </span>
         </div>
       </div>
@@ -34,25 +34,35 @@ const Login = () => {
           <div className="space-y-3.5">
             {/* Google Button */}
             <button className="flex w-full items-center justify-center gap-3 rounded-none border border-gray-400 bg-white px-4 py-3 text-sm font-normal text-gray-700 transition hover:bg-gray-50 focus:outline-none">
-              <svg className="h-4 w-4" viewBox="0 0 24 24">
+              <svg className="h-5 w-5" viewBox="0 0 48 48">
                 <path
-                  fill="#EA4335"
-                  d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.415 0-6.191-2.783-6.191-6.2s2.776-6.2 6.191-6.2c1.5 0 2.87.532 3.957 1.417l3.073-3.074C18.855 2.152 15.74 1 12.24 1 6.033 1 12.24s5.033 11.24 11.24 11.24c5.897 0 10.874-4.225 10.874-11.24 0-.712-.08-1.396-.188-1.955H12.24z"
+                  fill="#FFC107"
+                  d="M43.611 20.083H42V20H24v8h11.303C33.655 32.657 29.215 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.27 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
+                />
+                <path
+                  fill="#FF3D00"
+                  d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.27 4 24 4c-7.682 0-14.347 4.337-17.694 10.691z"
+                />
+                <path
+                  fill="#4CAF50"
+                  d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.196 0-9.625-3.327-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
+                />
+                <path
+                  fill="#1976D2"
+                  d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.094 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
                 />
               </svg>
-              <span>Continue with Google</span>
+
+              <span className="cursor-pointer">Continue with Google</span>
             </button>
 
             {/* Apple Button */}
             <button className="flex w-full items-center justify-center gap-3 rounded-none border border-gray-400 bg-white px-4 py-3 text-sm font-normal text-gray-700 transition hover:bg-gray-50 focus:outline-none">
-              <svg
-                className="h-4 w-4 text-black"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.7-1.13 1.84-.99 2.94 1.07.08 2.16-.52 2.82-1.33z" />
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16.365 1.43c0 1.14-.414 2.063-1.243 2.77-.829.707-1.83 1.06-3.004 1.06-.048-1.016.318-1.94 1.097-2.77.39-.415.885-.76 1.486-1.036.6-.276 1.156-.428 1.664-.456zm4.271 16.126c-.366.853-.799 1.64-1.298 2.359-.682.976-1.239 1.652-1.669 2.028-.666.618-1.38.935-2.143.951-.547 0-1.208-.156-1.98-.47-.774-.313-1.485-.47-2.134-.47-.681 0-1.41.157-2.187.47-.778.314-1.404.479-1.88.495-.731.032-1.462-.293-2.195-.975-.468-.408-1.05-1.108-1.748-2.1-.748-1.057-1.362-2.283-1.841-3.678-.512-1.507-.768-2.966-.768-4.378 0-1.618.35-3.013 1.048-4.182.549-.94 1.28-1.68 2.195-2.222.914-.541 1.903-.818 2.966-.834.585 0 1.352.181 2.303.542.95.362 1.56.543 1.828.543.203 0 .89-.214 2.06-.64 1.105-.393 2.037-.557 2.798-.494 2.062.167 3.61.98 4.644 2.442-1.844 1.118-2.758 2.684-2.742 4.696.016 1.568.585 2.873 1.706 3.913.508.479 1.074.85 1.7 1.11-.137.398-.282.78-.438 1.144z" />
               </svg>
-              <span>Continue with Apple</span>
+
+              <span className="cursor-pointer">Continue with Apple</span>
             </button>
           </div>
 
@@ -112,7 +122,7 @@ const Login = () => {
             {/* Action Submit Button */}
             <button
               type="submit"
-              className="w-full rounded-none bg-[#9CA3AF] py-3.5 text-sm font-medium text-white transition hover:bg-[#8B939F] focus:outline-none pt-4"
+              className="w-full cursor-pointer rounded-none bg-[#9CA3AF] py-3.5 text-sm font-medium text-white transition hover:bg-[#8B939F] focus:outline-none pt-4"
             >
               Log In
             </button>
@@ -123,7 +133,7 @@ const Login = () => {
             Don't have an Account?{" "}
             <Link
               href="/auth/register"
-              className="text-gray-800 underline underline-offset-2 hover:text-black"
+              className="text-gray-800  underline underline-offset-2 hover:text-black"
             >
               Sign up
             </Link>

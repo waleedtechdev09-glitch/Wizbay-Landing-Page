@@ -14,7 +14,7 @@ const Signup = () => {
         {/* Brand Logo Overlay */}
         <div className="absolute top-8 left-8 md:top-12 md:left-12">
           <span className="text-2xl md:text-3xl font-serif tracking-widest text-white uppercase drop-shadow-sm">
-            Wizbay
+            <Link href="/">Wizbay</Link>
           </span>
         </div>
       </div>
@@ -34,35 +34,35 @@ const Signup = () => {
           <div className="space-y-3.5">
             {/* Google Button */}
             <button className="flex w-full items-center justify-center gap-3 rounded-none border border-gray-400 bg-white px-4 py-3 text-sm font-normal text-gray-700 transition hover:bg-gray-50 focus:outline-none">
-              {/* Official Google Multi-color G Logo */}
-              <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" width="100%" height="100%">
+              <svg className="h-5 w-5" viewBox="0 0 48 48">
                 <path
-                  fill="#4285F4"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#FFC107"
+                  d="M43.611 20.083H42V20H24v8h11.303C33.655 32.657 29.215 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.27 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
                 />
                 <path
-                  fill="#34A853"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#FF3D00"
+                  d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.27 4 24 4c-7.682 0-14.347 4.337-17.694 10.691z"
                 />
                 <path
-                  fill="#FBBC05"
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  fill="#4CAF50"
+                  d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.196 0-9.625-3.327-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
                 />
                 <path
-                  fill="#EA4335"
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  fill="#1976D2"
+                  d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.094 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
                 />
               </svg>
-              <span>Continue with Google</span>
+
+              <span className="cursor-pointer">Continue with Google</span>
             </button>
 
             {/* Apple Button */}
             <button className="flex w-full items-center justify-center gap-3 rounded-none border border-gray-400 bg-white px-4 py-3 text-sm font-normal text-gray-700 transition hover:bg-gray-50 focus:outline-none">
-              {/* Official Clean Apple Silhouette Logo */}
-              <svg className="h-4 w-4 shrink-0 fill-black" viewBox="0 0 24 24" width="100%" height="100%">
-                <path d="M17.05 20.28c-.98.95-2.05 1.88-3.08 1.88-1.06 0-1.4-.65-2.61-.65-1.22 0-1.6.63-2.61.65-1.04.02-2.21-.99-3.2-1.96-2.02-1.98-3.55-5.58-3.55-8.97 0-5.38 3.48-8.23 6.75-8.23 1.04 0 2.02.39 2.67.39.63 0 1.76-.43 2.99-.43 1.28 0 2.44.47 3.23 1.27-3.92 1.62-3.3 6.95.42 8.47-1.12 2.65-2.45 5.3-4.02 6.57zM14.63 2.11c1.23-1.5 2.05-3.56 1.82-5.61-1.76.07-3.9 1.18-5.16 2.67-1.1 1.27-2.06 3.38-1.8 5.38 1.96.15 3.98-1.02 5.14-2.44z" />
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16.365 1.43c0 1.14-.414 2.063-1.243 2.77-.829.707-1.83 1.06-3.004 1.06-.048-1.016.318-1.94 1.097-2.77.39-.415.885-.76 1.486-1.036.6-.276 1.156-.428 1.664-.456zm4.271 16.126c-.366.853-.799 1.64-1.298 2.359-.682.976-1.239 1.652-1.669 2.028-.666.618-1.38.935-2.143.951-.547 0-1.208-.156-1.98-.47-.774-.313-1.485-.47-2.134-.47-.681 0-1.41.157-2.187.47-.778.314-1.404.479-1.88.495-.731.032-1.462-.293-2.195-.975-.468-.408-1.05-1.108-1.748-2.1-.748-1.057-1.362-2.283-1.841-3.678-.512-1.507-.768-2.966-.768-4.378 0-1.618.35-3.013 1.048-4.182.549-.94 1.28-1.68 2.195-2.222.914-.541 1.903-.818 2.966-.834.585 0 1.352.181 2.303.542.95.362 1.56.543 1.828.543.203 0 .89-.214 2.06-.64 1.105-.393 2.037-.557 2.798-.494 2.062.167 3.61.98 4.644 2.442-1.844 1.118-2.758 2.684-2.742 4.696.016 1.568.585 2.873 1.706 3.913.508.479 1.074.85 1.7 1.11-.137.398-.282.78-.438 1.144z" />
               </svg>
-              <span>Continue with Apple</span>
+
+              <span className="cursor-pointer">Continue with Apple</span>
             </button>
           </div>
 
@@ -99,7 +99,7 @@ const Signup = () => {
             {/* Action Submit Button */}
             <button
               type="submit"
-              className="w-full rounded-none bg-[#9CA3AF] py-3.5 text-lg font-normal text-white transition hover:bg-[#8B939F] focus:outline-none"
+              className="w-full cursor-pointer rounded-none bg-[#9CA3AF] py-3.5 text-lg font-normal text-white transition hover:bg-[#8B939F] focus:outline-none"
             >
               Invite Me
             </button>
@@ -108,7 +108,7 @@ const Signup = () => {
           {/* Footer Navigation Link */}
           <p className="mt-8 text-sm text-gray-600">
             Already have an Account?{" "}
-            <Link  
+            <Link
               href="/auth/login"
               className="text-gray-800 underline underline-offset-2 hover:text-black"
             >
